@@ -104,4 +104,13 @@
 		t_b = p \times (1 + r)^t + c \times (1 + r) \times \frac{(1 +r)^t - 1}{r}
 	\end{equation*}
 	\subsection{General formula for recurring contribution}
+	
+	It's a bit difficult to calculate it very accurately. However, The following formula is reasonably accurate:
+	
+	\begin{equation*}
+		\begin{split}
+		t_e &= p \times (1 + \frac{r}{n})^{n \times t} + \sum_{i = 1}^{m \times t}{c \times (1 + \frac{r}{n})^{n \times t - i \times \frac{n}{m}}} \\
+		t_b &= p \times (1 + \frac{r}{n})^{n \times t} + \sum_{i = 0}^{m \times t - 1}{c \times (1 + \frac{r}{n})^{n \times t - i \times \frac{n}{m}}}
+		\end{split}
+	\end{equation*}
 \end{document}
