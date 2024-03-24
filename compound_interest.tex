@@ -1,0 +1,107 @@
+\documentclass{book} 
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{placeins}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{hyperref}
+% For tables:
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{snakes}
+\usetikzlibrary{decorations.pathmorphing}
+
+\hypersetup{colorlinks=true,linkcolor=blue, linktocpage}
+
+\title{Compound Interest}
+\author{Saman Saadi}
+
+\begin{document}
+	\frontmatter
+	\maketitle
+	\mainmatter
+	\section{Compound interst with only principal}
+	Let's assume we want to invest with $p$ amount for principal. The anual interest rate is $r$. The anual interest rate is distributed $n$ times per year. We want to see how much our invevstment grows over $t$ years:
+	
+	\begin{equation*}
+		p^{\prime} = p \times (1 + \frac{r}{n})^{n \times t}
+	\end{equation*} 
+	
+	Let's explain the formula with an example. If $n = 12$ and $t=1$, then:
+	
+	\begin{equation*}
+		\begin{split}
+			p_0 &= p \\
+			p_1 &= p_0 \times (1 + \frac{r}{n}) = p \times (1 + \frac{r}{n}) \\
+			p_2 &= p_1 \times (1 + \frac{r}{n}) = p \times (1 + \frac{r}{n})^2 \\
+			&\vdots \\
+			p_{12} &= p_{11} \times (1 + \frac{r}{n}) = p \times (1 + \frac{r}{n})^{12}
+		\end{split}
+	\end{equation*}	 
+	
+	\section{Compound interest with principal and recurring contribution}
+	We introduced a new variable. Let's assume $m$ is the number of times that we contribute $c$ in a year.
+	\subsection{When $n = 1 \land m = 1$ }
+	Let's assume $n=1$ and we have a recurring contribution of $c$ once every year ($m = 1$). Let's assume $e_i$ is $c$ as well as its growth if we start investing it in year $i$ for $t - i$ years:
+	
+	\begin{equation*}
+		e_i = c \times (1 + r)^{t - i}
+	\end{equation*}
+	We assumed the contribution started at the end of the year. If it's at the beginning of the year, we call it $b_i$:
+	
+	\begin{equation*}
+		b_i = c \times (1 + r)^{t - i + 1}
+	\end{equation*}
+	
+	The total growth is:
+	\begin{equation*}
+		\begin{split}
+			t_e &= p \times (1 + r)^t + \sum_{i = 1}^{t}{e_i} \\
+			t_b &= p \times (1 + r)^t + \sum_{i = 1}^{t}{b_i}
+		\end{split}
+	\end{equation*}
+	
+	Let's calculate the second part of $t_e$:
+	
+	\begin{equation*}
+		\begin{split}
+			\sum_{i = 1}^{t}{e_i} &= \sum_{i = 1}^{t}{c \times (1 + r)^{t - i}} \\
+			&= \sum_{i = 0}^{t - 1}{c \times (1 + r)^i} \\
+			&= c \times \sum_{i = 0}^{t - 1}{(1 + r)^i} \\
+			&= c \times (1 + (1 + r)^1 + (1 + r)^2 + \dots + (1 + r)^{t - 1}) \\
+			&= c \times \frac{(1 + r)^t - 1}{(1 + r) - 1} \\
+			&= c \times \frac{(1 + r)^t - 1}{r}
+		\end{split}
+	\end{equation*}
+	
+	Note that we use the fact that $\sum_{i = 0}^{t - 1}{(1 + r)^i}$ is \href[]{https://en.wikipedia.org/wiki/Geometric_series}{geometric series}. So we have:
+	
+	\begin{equation*}
+		t_e = p \times (1 + r)^t + c \times \frac{(1 + r)^t - 1}{r}
+	\end{equation*}
+	
+	With a similar approach we can calcualte $t_b$:
+	\begin{equation*}
+		\begin{split}
+			\sum_{i = 1}^{t}{b_i} &= \sum_{i = 1}^{t}{c \times (1 + r)^{t - i + 1}} \\
+			&= \sum_{i = 1}^{t}{c \times (1 + r)^i} \\
+			&= c \times ((1 + r)^1 + (1 + r)^2 + \dots + (1 +r)^t) \\
+			&= c \times (1 + r) \times (1 + (1 + r)^1 + (1 +r)^2 + \dots + (1 +r)^{t - 1}) \\
+			&= c \times (1 + r) \times \frac{(1 +r)^t - 1}{r} \\
+		\end{split}
+	\end{equation*}
+	
+	So we have:
+	
+	\begin{equation*}
+		t_b = p \times (1 + r)^t + c \times (1 + r) \times \frac{(1 +r)^t - 1}{r}
+	\end{equation*}
+	\subsection{General formula for recurring contribution}
+\end{document}
